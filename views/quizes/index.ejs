@@ -6,11 +6,16 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-   <table>
+    <table align="center">
       <% var i; for (i=0; i < quizes.length; i++) { %>
-       <tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td></tr>
+      <tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td></tr>
       <% } %>
     </table>
+    <form method="get" action="/quizes">
+      ¿No encuentra su pregunta?. Búsquela: <p>
+      <input type="text" name="search" value="Pregunta"/>
+      <input type="submit" value="Send"/>
+    </form>
   </body>
 </html>
     
