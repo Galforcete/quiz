@@ -1,5 +1,5 @@
 *					 { margin:0; padding: 0; }
-body 				 { font: 16px, Georgia, serif; text-align: center; }
+body 				 { font: 16px, Georgia, serif;}
 
 #Nombre1			 {font-size:14px;}
 #Nombre2			 {font-size:14px;}
@@ -8,7 +8,7 @@ body 				 { font: 16px, Georgia, serif; text-align: center; }
 #page-wrap  		 { margin: 2% auto; color: white; }
 #page-wrap > .main   { border: 1px solid #999; padding: 1%;
 			    	   margin-bottom: 1px; color: black;}
-
+			    	   
 section > div		 { padding: 20px; }
 header, nav, section { background: #eee; text-align: center;}
 footer				 { background: #eee; text-align: center;}
