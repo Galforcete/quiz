@@ -4,23 +4,17 @@ var app = require('../app');
 var fs = require("fs");
 var https = require("https");
 
-console.log("Hola que haces");
-
 var options = {
 	key: fs.readFileSync('certs/quiz-2015-key.pem').toString(),
 	cert: fs.readFileSync('certs/quiz-2015-cert.pem').toString()
 };
 
 app.set('port', process.env.PORT || 3000);
-console.log("Oyendo a 3000");
 var server = app.listen(app.get('port'), function() {
-	console.log("HTTP");
   debug('Express server listening on port ' + server.address().port);
 });
 
-console.log("Oyendo a 8443");
 var serverSecure = https.createServer(options, app);
 serverSecure.listen(8443, function(){
-	console.log("HTTPS");
 	debug('Express server listening on port ' + server.address().port);
 });
