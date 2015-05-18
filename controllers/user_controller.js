@@ -1,14 +1,19 @@
-var users = { admin: {id:1, username:"admin", password:"1234"},
-			  mams:	 {id:2, username:"mams",  password:"5678"}
-			 };
+var models = require('../models/models.js');
 
 // Comprueba si el usuario está registrado en users
 // Si autenticación falla o hay errores se ejecuta callback(error).
+
 exports.autenticar = function(login, password, callback) {
-	if(users[login]){
-		if(password === users[login].password){
-			callback(null,users[login]);
+	models.User.find({
+		where: {
+			username: login
 		}
-		else { callback(new Error('Password erróneo.')); }
-	} else { callback(new Error('No existe el usuario'));}
+	}).then(function(user){
+		if(user) {
+			if(user.verifyPassword(password)){
+				callback(null, user);
+			}
+			else { callback(new Error('Password erróneo.'));}
+		} else { callback(new Error('No existe user=' + login));}
+	}).catch(function(error){callback(error)});
 };
