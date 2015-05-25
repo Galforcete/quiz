@@ -32,15 +32,18 @@ exports.load = function(req, res, next, quizId){
 // GET /quizes
 exports.index = function(req, res) {
 	var options = {};
+	var favs=[];
+
 	if(req.user){ // req.user es creado por autoload de usuario
 				  // si la ruta lleva el párametro .quizId
 		options.where = {UserId: req.user.id}	
 	}
+
 	var busqueda = req.query.search;
 	if(busqueda== null){
 		models.Quiz.findAll(options).then(
 			function(quizes){
-				res.render('quizes/index', { quizes: quizes, errors: []});
+				res.render('quizes/index.ejs', {quizes: quizes, errors: [], favs: favs});
 			}
 		).catch(function(error){ next(error);});
 	} else {
@@ -50,6 +53,19 @@ exports.index = function(req, res) {
 				res.render('quizes/index', { quizes: quizes, errors: []});
 			}
 		).catch(function(error){ next(error);});
+	}
+
+
+// Control de favoritos
+	if(req.session.user){
+		models.favourites.findAll({
+			where: {UserId: Number(req.session.user.id) },
+			order: 'QuizId ASC'
+		}).then(function(a){
+			for(index = 0; index < a.length;index++){
+				favs.push(a[index].dataValues.QuizId);
+			}
+		})
 	}
 };
 
